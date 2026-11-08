@@ -282,7 +282,7 @@ const studentData = [
   { name: "سونیا ارجمند", id: "40413201001", group: "1", quiz: "100", quiz2: "55", absences: 0, practice: ["جلسه ۱ حل تمرین ✅"] },
   { name: "یاسمن بیگی", id: "40413201010", group: "1", quiz: "100", quiz2: "55", absences: 0, practice: ["جلسه ۱ حل تمرین ✅"] },
   { name: "محمد مهدی حق جانلو", id: "40413201016", group: "1", quiz: "100", quiz2: "55", absences: 0, practice: [] },
-  { name: "مهسا فروغی", id: "40313201033", group: "1", quiz: "غیبت", quiz2: "55", absences: 4, practice: [] },
+  { name: "مهسا فروغی", id: "40313201033", group: "1", quiz: "غیبت", quiz2: "55", absences: 5, practice: [] },
   { name: "امید گنجی زاده", id: "40413201039", group: "2", quiz: "70", quiz2: "35", absences: 1, practice: [] },
   { name: "هانیه محمدی", id: "40413201043", group: "2", quiz: "70", quiz2: "35", absences: 1, practice: [] },
   { name: "امیر حسن حق جو", id: "40413201017", group: "2", quiz: "70", quiz2: "35", absences: 0, practice: [] },
@@ -296,7 +296,7 @@ const studentData = [
   { name: "اتنا صمصامی", id: "40413201031", group: "4", quiz: "100", quiz2: "45", absences: 0, practice: ["جلسه ۱ حل تمرین ✅"] },
   { name: "مهشاد نجف خانی", id: "40413201051", group: "4", quiz: "100", quiz2: "45", absences: 0, practice: [] },
   { name: "محمد معرفی", id: "40413201046", group: "5", quiz: "100", quiz2: "65", absences: 0, practice: ["جلسه ۱ حل تمرین ✅"] },
-  { name: "خانم مقدسی", id: "40513205001", group: "5", quiz: "فاقد برگه", quiz2: "65", absences: 1, practice: [] },
+  { name: "خانم مقدسی", id: "40513205001", group: "5", quiz: "فاقد برگه (موجه)", quiz2: "65", absences: 1, practice: [] },
   { name: "آتنا رفیعی", id: "40413201027", group: "5", quiz: "غیبت", quiz2: "65", absences: 1, practice: ["جلسه ۱ حل تمرین ✅"] },
   { name: "پریسا افشار", id: "40313201002", group: "5", quiz: "20", quiz2: "65", absences: 3, practice: [] },
   { name: "مهلا مرادی", id: "40413201044", group: "6", quiz: "100", quiz2: "45", absences: 0, practice: [] },
@@ -310,13 +310,13 @@ const studentData = [
   { name: "سبحان دریایی", id: "40413201021", group: "8", quiz: "100", quiz2: "40", absences: 1, practice: ["جلسه ۱ حل تمرین ✅"] },
   { name: "محمد صالح محمدپور", id: "40413201040", group: "8", quiz: "100", quiz2: "40", absences: 1, practice: ["جلسه ۱ حل تمرین ✅"] },
   { name: "پویان قاسمپور", id: "40413201037", group: "8", quiz: "100", quiz2: "40", absences: 2, practice: ["جلسه ۱ حل تمرین ✅"] },
-  { name: "هلیا مظفری", id: "40413201045", group: "9", quiz: "100", quiz2: "20", absences: 0, practice: [] },
-  { name: "مهدی فلاحی", id: "40413201034", group: "9", quiz: "100", quiz2: "20", absences: 1, practice: [] },
-  { name: "ارش هادی پور", id: "40413205002", group: "9", quiz: "100", quiz2: "20", absences: 1, practice: [] },
-  { name: "محمد جواد نوروز زاده", id: "40413201055", group: "9", quiz: "100", quiz2: "20", absences: 1, practice: [] },
+  { name: "هلیا مظفری", id: "40413201045", group: "9", quiz: "100", quiz2: "42.5", absences: 0, practice: [] },
+  { name: "مهدی فلاحی", id: "40413201034", group: "9", quiz: "100", quiz2: "42.5", absences: 2, practice: [] },
+  { name: "ارش هادی پور", id: "40413205002", group: "9", quiz: "100", quiz2: "42.5", absences: 1, practice: [] },
+  { name: "محمد جواد نوروز زاده", id: "40413201055", group: "9", quiz: "100", quiz2: "42.5", absences: 1, practice: [] },
   { name: "اریسا جمالی راد", id: "40413201014", group: "10", quiz: "100", quiz2: "45", absences: 0, practice: ["جلسه ۱ حل تمرین ✅"] },
   { name: "مهشید اشتری", id: "40413201004", group: "10", quiz: "100", quiz2: "45", absences: 0, practice: ["جلسه ۱ حل تمرین ✅"] },
-  { name: "حدیث خرمی مقدم", id: "40413201018", group: "10", quiz: "100", quiz2: "45", absences: 0, practice: ["جلسه ۱ حل تمرین ✅"] },
+  { name: "حدیث خرمی  مقدم", id: "40413201018", group: "10", quiz: "100", quiz2: "45", absences: 0, practice: ["جلسه ۱ حل تمرین ✅"] },
   { name: "امیر رضا فیروزی", id: "40413201036", group: "10", quiz: "100", quiz2: "45", absences: 3, practice: [] },
 ];
 
@@ -422,7 +422,7 @@ function buildDashboard() {
   const bins = [["۰–۴۹", 0, 49], ["۵۰–۷۴", 50, 74], ["۷۵–۹۹", 75, 99], ["۱۰۰", 100, 100]];
   drawBars("#distChart", bins.map(b => [b[0], scored.filter(s => score(s) >= b[1] && score(s) <= b[2]).length]));
 
-  const absent = studentData.filter(s => s.quiz === "غیبت").length, nosheet = studentData.filter(s => s.quiz === "فاقد برگه").length;
+  const absent = studentData.filter(s => s.quiz === "غیبت").length, nosheet = studentData.filter(s => s.quiz.startsWith("فاقد برگه")).length;
   const seg = [["شرکت‌کننده", scored.length, "#00f0ff"], ["غیبت", absent, "#ff2e93"], ["فاقد برگه", nosheet, "#b400ff"]];
   let acc = 0;
   $("#donut").style.background = "conic-gradient(" + seg.map(s => { const a = acc / N * 100; acc += s[1]; return `${s[2]} ${a}% ${acc / N * 100}%`; }).join(",") + ")";
