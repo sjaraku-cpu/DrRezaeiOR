@@ -146,6 +146,10 @@ footer{text-align:center;color:var(--mut);padding:26px;border-top:1px solid var(
 .alert ul{margin:8px 0 0;padding-inline-start:20px}
 .why{font-size:.8rem;opacity:.8}
 
+.msg{margin:14px 0;border-inline-start:4px solid var(--c1)}
+.msg.mid{border-color:#ffb800}.msg.bad{border-color:var(--c3)}
+.msg p{font-weight:700;line-height:2}.msg ul{margin:8px 0 0;padding-inline-start:20px;line-height:2;opacity:.9}
+
 </style>
 </head>
 <body>
@@ -234,7 +238,7 @@ footer{text-align:center;color:var(--mut);padding:26px;border-top:1px solid var(
   <h2 class="title">پرتال <span class="grad">دانشجو</span></h2>
   <p class="sub">کد دانشجویی خود را وارد کنید (ارقام فارسی یا انگلیسی).</p>
   <form class="search glass" id="searchForm" autocomplete="off">
-    <input id="sid" inputmode="numeric" placeholder="مثلاً ۴۰۴۱۳۲۰۱۰۰۱" aria-label="کد دانشجویی">
+    <input id="sid" inputmode="numeric" placeholder="کد دانشجویی" aria-label="کد دانشجویی">
     <button class="btn primary" type="submit">جستجو</button>
   </form>
   <div id="result"></div>
@@ -279,45 +283,45 @@ footer{text-align:center;color:var(--mut);padding:26px;border-top:1px solid var(
 
 <script>
 const studentData = [
-  { name: "سونیا ارجمند", id: "40413201001", group: "1", quiz: "100", quiz2: "55", absences: 0, practice: ["جلسه ۱ حل تمرین ✅"] },
-  { name: "یاسمن بیگی", id: "40413201010", group: "1", quiz: "100", quiz2: "55", absences: 0, practice: ["جلسه ۱ حل تمرین ✅"] },
-  { name: "محمد مهدی حق جانلو", id: "40413201016", group: "1", quiz: "100", quiz2: "55", absences: 0, practice: [] },
-  { name: "مهسا فروغی", id: "40313201033", group: "1", quiz: "غیبت", quiz2: "55", absences: 1, practice: [] },
-  { name: "امید گنجی زاده", id: "40413201039", group: "2", quiz: "70", quiz2: "35", absences: 1, practice: [] },
-  { name: "هانیه محمدی", id: "40413201043", group: "2", quiz: "70", quiz2: "35", absences: 1, practice: [] },
-  { name: "امیر حسن حق جو", id: "40413201017", group: "2", quiz: "70", quiz2: "35", absences: 0, practice: [] },
-  { name: "سجاد جودکی", id: "40413201015", group: "تک نفره", quiz: "100", quiz2: "65", absences: 0, practice: ["جلسه ۱ حل تمرین ✅"] },
-  { name: "نگار عرب", id: "40413201033", group: "3", quiz: "90", quiz2: "65", absences: 0, practice: ["جلسه ۱ حل تمرین ✅"] },
-  { name: "نرگس نعیمی", id: "40413201053", group: "3", quiz: "90", quiz2: "65", absences: 0, practice: [] },
-  { name: "عرفان پناهی", id: "40413201011", group: "3", quiz: "90", quiz2: "65", absences: 0, practice: [] },
-  { name: "مهبد مهدی زاده", id: "40413201049", group: "3", quiz: "90", quiz2: "65", absences: 0, practice: [] },
-  { name: "فاطمه کمال ابادی", id: "40413201038", group: "4", quiz: "100", quiz2: "45", absences: 0, practice: ["جلسه ۱ حل تمرین ✅"] },
-  { name: "مهیار اکبری", id: "40413201006", group: "4", quiz: "100", quiz2: "45", absences: 0, practice: [] },
-  { name: "اتنا صمصامی", id: "40413201031", group: "4", quiz: "100", quiz2: "45", absences: 0, practice: ["جلسه ۱ حل تمرین ✅"] },
-  { name: "مهشاد نجف خانی", id: "40413201051", group: "4", quiz: "100", quiz2: "45", absences: 0, practice: [] },
-  { name: "محمد معرفی", id: "40413201046", group: "5", quiz: "100", quiz2: "65", absences: 0, practice: ["جلسه ۱ حل تمرین ✅"] },
-  { name: "خانم مقدسی", id: "40513205001", group: "5", quiz: "فاقد برگه (موجه)", quiz2: "65", absences: 1, practice: [] },
-  { name: "آتنا رفیعی", id: "40413201027", group: "5", quiz: "غیبت", quiz2: "65", absences: 1, practice: ["جلسه ۱ حل تمرین ✅"] },
-  { name: "پریسا افشار", id: "40313201002", group: "5", quiz: "20", quiz2: "65", absences: 3, practice: [] },
-  { name: "مهلا مرادی", id: "40413201044", group: "6", quiz: "100", quiz2: "45", absences: 0, practice: [] },
-  { name: "امیر محمد بابایی", id: "40413201008", group: "6", quiz: "100", quiz2: "45", absences: 0, practice: [] },
-  { name: "رویا محمدی", id: "40413201041", group: "6", quiz: "100", quiz2: "45", absences: 0, practice: ["جلسه ۱ حل تمرین ✅"] },
-  { name: "پریا صفی خانی", id: "40413201030", group: "7", quiz: "100", quiz2: "65", absences: 1, practice: ["جلسه ۱ حل تمرین ✅"] },
-  { name: "زینب نعیمی", id: "40413201052", group: "7", quiz: "100", quiz2: "65", absences: 0, practice: [] },
-  { name: "مهدیه موسوی", id: "40413201048", group: "7", quiz: "100", quiz2: "65", absences: 0, practice: ["جلسه ۱ حل تمرین ✅"] },
-  { name: "محمد جواد دشمیر", id: "40413201022", group: "7", quiz: "100", quiz2: "65", absences: 1, practice: [] },
-  { name: "فاطمه تبرته فراهانی", id: "40413201012", group: "8", quiz: "100", quiz2: "45", absences: 0, practice: ["جلسه ۱ حل تمرین ✅"] },
-  { name: "سبحان دریایی", id: "40413201021", group: "8", quiz: "100", quiz2: "45", absences: 1, practice: ["جلسه ۱ حل تمرین ✅"] },
-  { name: "محمد صالح محمدپور", id: "40413201040", group: "8", quiz: "100", quiz2: "45", absences: 1, practice: ["جلسه ۱ حل تمرین ✅"] },
-  { name: "پویان قاسمپور", id: "40413201037", group: "8", quiz: "100", quiz2: "45", absences: 2, practice: ["جلسه ۱ حل تمرین ✅"] },
-  { name: "هلیا مظفری", id: "40413201045", group: "9", quiz: "100", quiz2: "42.5", absences: 0, practice: [] },
-  { name: "مهدی فلاحی", id: "40413201034", group: "9", quiz: "100", quiz2: "42.5", absences: 2, practice: [] },
-  { name: "ارش هادی پور", id: "40413205002", group: "9", quiz: "100", quiz2: "42.5", absences: 1, practice: [] },
-  { name: "محمد جواد نوروز زاده", id: "40413201055", group: "9", quiz: "100", quiz2: "42.5", absences: 1, practice: [] },
-  { name: "اریسا جمالی راد", id: "40413201014", group: "10", quiz: "100", quiz2: "45", absences: 0, practice: ["جلسه ۱ حل تمرین ✅"] },
-  { name: "مهشید اشتری", id: "40413201004", group: "10", quiz: "100", quiz2: "45", absences: 0, practice: ["جلسه ۱ حل تمرین ✅"] },
-  { name: "حدیث خرمی  مقدم", id: "40413201018", group: "10", quiz: "100", quiz2: "45", absences: 0, practice: ["جلسه ۱ حل تمرین ✅"] },
-  { name: "امیر رضا فیروزی", id: "40413201036", group: "10", quiz: "100", quiz2: "45", absences: 3, practice: [] },
+  { name: "سونیا ارجمند", id: "40413201001", group: "1", quiz: "100", quiz2: "55", quiz3: "100", absences: 0, practice: ["جلسه ۱ حل تمرین ✅", "جلسه ۲ حل تمرین ✅", "اعلام پروژه ✅"] },
+  { name: "یاسمن بیگی", id: "40413201010", group: "1", quiz: "100", quiz2: "55", quiz3: "100", absences: 0, practice: ["جلسه ۱ حل تمرین ✅", "اعلام پروژه ✅"] },
+  { name: "محمد مهدی حق جانلو", id: "40413201016", group: "1", quiz: "100", quiz2: "55", quiz3: "100", absences: 0, practice: ["اعلام پروژه ✅"] },
+  { name: "مهسا فروغی", id: "40313201033", group: "1", quiz: "غیبت", quiz2: "55", quiz3: "0", absences: 1, practice: ["اعلام پروژه ✅"] },
+  { name: "امید گنجی زاده", id: "40413201039", group: "2", quiz: "70", quiz2: "35", quiz3: "100", absences: 1, practice: ["اعلام پروژه ✅"] },
+  { name: "هانیه محمدی", id: "40413201043", group: "2", quiz: "70", quiz2: "35", quiz3: "100", absences: 1, practice: ["اعلام پروژه ✅"] },
+  { name: "امیر حسن حق جو", id: "40413201017", group: "2", quiz: "70", quiz2: "35", quiz3: "100", absences: 0, practice: ["جلسه ۲ حل تمرین ✅", "اعلام پروژه ✅"] },
+  { name: "سجاد جودکی", id: "40413201015", group: "تک نفره", quiz: "100", quiz2: "65", quiz3: "100", absences: 0, practice: ["جلسه ۱ حل تمرین ✅", "جلسه ۲ حل تمرین ✅", "اعلام پروژه ✅"] },
+  { name: "نگار عرب", id: "40413201033", group: "3", quiz: "90", quiz2: "65", quiz3: "60", absences: 0, practice: ["جلسه ۱ حل تمرین ✅", "اعلام پروژه ✅"] },
+  { name: "نرگس نعیمی", id: "40413201053", group: "3", quiz: "90", quiz2: "65", quiz3: "100", absences: 0, practice: ["اعلام پروژه ✅"] },
+  { name: "عرفان پناهی", id: "40413201011", group: "3", quiz: "90", quiz2: "65", quiz3: "75", absences: 0, practice: ["اعلام پروژه ✅"] },
+  { name: "مهبد مهدی زاده", id: "40413201049", group: "3", quiz: "90", quiz2: "65", quiz3: "100", absences: 0, practice: ["اعلام پروژه ✅"] },
+  { name: "فاطمه کمال ابادی", id: "40413201038", group: "4", quiz: "100", quiz2: "45", quiz3: "100", absences: 0, practice: ["جلسه ۱ حل تمرین ✅", "جلسه ۲ حل تمرین ✅", "اعلام پروژه ✅"] },
+  { name: "مهیار اکبری", id: "40413201006", group: "4", quiz: "100", quiz2: "45", quiz3: "100", absences: 0, practice: ["اعلام پروژه ✅"] },
+  { name: "اتنا صمصامی", id: "40413201031", group: "4", quiz: "100", quiz2: "45", quiz3: "100", absences: 0, practice: ["جلسه ۱ حل تمرین ✅", "جلسه ۲ حل تمرین ✅", "اعلام پروژه ✅"] },
+  { name: "مهشاد نجف خانی", id: "40413201051", group: "4", quiz: "100", quiz2: "45", quiz3: "100", absences: 0, practice: ["اعلام پروژه ✅"] },
+  { name: "محمد معرفی", id: "40413201046", group: "5", quiz: "100", quiz2: "65", quiz3: "100", absences: 0, practice: ["جلسه ۱ حل تمرین ✅", "جلسه ۲ حل تمرین ✅", "اعلام پروژه ✅"] },
+  { name: "خانم مقدسی", id: "40513205001", group: "5", quiz: "فاقد برگه (موجه)", quiz2: "65", quiz3: "50", absences: 1, practice: ["جلسه ۲ حل تمرین ✅", "اعلام پروژه ✅"] },
+  { name: "آتنا رفیعی", id: "40413201027", group: "5", quiz: "غیبت", quiz2: "65", quiz3: "100", absences: 1, practice: ["جلسه ۱ حل تمرین ✅", "اعلام پروژه ✅"] },
+  { name: "پریسا افشار", id: "40313201002", group: "5", quiz: "20", quiz2: "65", quiz3: "25", absences: 3, practice: ["اعلام پروژه ✅"] },
+  { name: "مهلا مرادی", id: "40413201044", group: "6", quiz: "100", quiz2: "45", quiz3: "75", absences: 0, practice: ["اعلام پروژه ✅"] },
+  { name: "امیر محمد بابایی", id: "40413201008", group: "6", quiz: "100", quiz2: "45", quiz3: "100", absences: 0, practice: ["اعلام پروژه ✅"] },
+  { name: "رویا محمدی", id: "40413201041", group: "6", quiz: "100", quiz2: "45", quiz3: "100", absences: 0, practice: ["جلسه ۱ حل تمرین ✅", "اعلام پروژه ✅"] },
+  { name: "پریا صفی خانی", id: "40413201030", group: "7", quiz: "100", quiz2: "65", quiz3: "100", absences: 1, practice: ["جلسه ۱ حل تمرین ✅", "اعلام پروژه ✅"] },
+  { name: "زینب نعیمی", id: "40413201052", group: "7", quiz: "100", quiz2: "65", quiz3: "100", absences: 0, practice: ["اعلام پروژه ✅"] },
+  { name: "مهدیه موسوی", id: "40413201048", group: "7", quiz: "100", quiz2: "65", quiz3: "100", absences: 0, practice: ["جلسه ۱ حل تمرین ✅", "اعلام پروژه ✅"] },
+  { name: "محمد جواد دشمیر", id: "40413201022", group: "7", quiz: "100", quiz2: "65", quiz3: "100", absences: 1, practice: ["اعلام پروژه ✅"] },
+  { name: "فاطمه تبرته فراهانی", id: "40413201012", group: "8", quiz: "100", quiz2: "45", quiz3: "100", absences: 0, practice: ["جلسه ۱ حل تمرین ✅", "جلسه ۲ حل تمرین ✅", "اعلام پروژه ✅"] },
+  { name: "سبحان دریایی", id: "40413201021", group: "8", quiz: "100", quiz2: "45", quiz3: "80", absences: 1, practice: ["جلسه ۱ حل تمرین ✅", "جلسه ۲ حل تمرین ✅", "اعلام پروژه ✅"] },
+  { name: "محمد صالح محمدپور", id: "40413201040", group: "8", quiz: "100", quiz2: "45", quiz3: "100", absences: 1, practice: ["جلسه ۱ حل تمرین ✅", "اعلام پروژه ✅"] },
+  { name: "پویان قاسمپور", id: "40413201037", group: "8", quiz: "100", quiz2: "45", quiz3: "80", absences: 2, practice: ["جلسه ۱ حل تمرین ✅", "جلسه ۲ حل تمرین ✅", "اعلام پروژه ✅"] },
+  { name: "هلیا مظفری", id: "40413201045", group: "9", quiz: "100", quiz2: "42.5", quiz3: "100", absences: 0, practice: ["اعلام پروژه ✅"] },
+  { name: "مهدی فلاحی", id: "40413201034", group: "9", quiz: "100", quiz2: "42.5", quiz3: "10", absences: 2, practice: ["اعلام پروژه ✅"] },
+  { name: "ارش هادی پور", id: "40413205002", group: "9", quiz: "100", quiz2: "42.5", quiz3: "75", absences: 1, practice: ["اعلام پروژه ✅"] },
+  { name: "محمد جواد نوروز زاده", id: "40413201055", group: "9", quiz: "100", quiz2: "42.5", quiz3: "100", absences: 1, practice: ["اعلام پروژه ✅"] },
+  { name: "اریسا جمالی راد", id: "40413201014", group: "10", quiz: "100", quiz2: "45", quiz3: "100", absences: 0, practice: ["جلسه ۱ حل تمرین ✅", "جلسه ۲ حل تمرین ✅", "اعلام پروژه ✅"] },
+  { name: "مهشید اشتری", id: "40413201004", group: "10", quiz: "100", quiz2: "45", quiz3: "100", absences: 0, practice: ["جلسه ۱ حل تمرین ✅", "جلسه ۲ حل تمرین ✅", "اعلام پروژه ✅"] },
+  { name: "حدیث خرمی  مقدم", id: "40413201018", group: "10", quiz: "100", quiz2: "45", quiz3: "75", absences: 0, practice: ["جلسه ۱ حل تمرین ✅", "اعلام پروژه ✅"] },
+  { name: "امیر رضا فیروزی", id: "40413201036", group: "10", quiz: "100", quiz2: "45", quiz3: "100", absences: 3, practice: ["جلسه ۲ حل تمرین ✅", "اعلام پروژه ✅"] },
 ];
 
 /* ---------- محتوا ---------- */
@@ -456,6 +460,32 @@ function resetCharts() {
 }
 
 /* ---------- پرتال ---------- */
+const fmtQ = v => v === "" || v == null ? "—" : (/^\d+(\.\d+)?$/.test(v) ? toFa(v) : esc(v));
+
+
+function analyze(s) {
+  const nums = [s.quiz, s.quiz2, s.quiz3].filter(x => /^\d+(\.\d+)?$/.test(x)).map(Number);
+  const a = nums.length ? nums.reduce((x, y) => x + y, 0) / nums.length : null;
+  const first = s.name.trim().split(/\s+/)[0];
+  const pts = [];
+  let lvl = "good", head;
+  if (a === null) { lvl = "bad"; head = "هنوز نمره‌ای از شما ثبت نشده است."; }
+  else if (a >= 80) head = "وضعیت شما عالی است و میانگین نمرات کوئیزهایتان " + toFa(Math.round(a)) + " است.";
+  else if (a >= 60) { lvl = "mid"; head = "وضعیت شما خوب است، ولی جا برای بهتر شدن دارید. میانگین کوئیزها " + toFa(Math.round(a)) + " است."; }
+  else { lvl = "bad"; head = "وضعیت شما نیاز به توجه دارد. میانگین کوئیزها " + toFa(Math.round(a)) + " است."; }
+  if (s.absences >= 3) { if (lvl === "good") lvl = "mid"; pts.push("تعداد غیبت‌ها (" + toFa(s.absences) + ") زیاد است؛ حضور منظم کمک بزرگی می‌کند."); }
+  else if (s.absences === 0) pts.push("حضور شما در کلاس منظم بوده است.");
+  else pts.push(toFa(s.absences) + " غیبت ثبت شده است؛ تلاش کنید جلسه‌های بعد حاضر باشید.");
+  if (s.quiz === "غیبت") pts.push("در کوئیز اول حاضر نبودید.");
+  if (/^فاقد برگه/.test(s.quiz)) pts.push("برای کوئیز اول برگه‌ای ثبت نشده است.");
+  const nm = [["کوئیز اول", s.quiz], ["کوئیز دوم", s.quiz2], ["کوئیز سوم", s.quiz3]].filter(x => /^\d+(\.\d+)?$/.test(x[1]) && Number(x[1]) < 50).map(x => x[0]);
+  if (nm.length) pts.push("نمره " + nm.join(" و ") + " پایین‌تر از ۵۰ است؛ مرور مباحث را پیشنهاد می‌کنیم.");
+  const pc = s.practice.filter(p => p.includes("حل تمرین")).length;
+  if (pc === 0) pts.push("در جلسه‌های حل تمرین مشارکتی ثبت نشده؛ حل تمرین‌ها به یادگیری شما کمک می‌کند.");
+  else pts.push("در " + toFa(pc) + " جلسه حل تمرین مشارکت داشته‌اید.");
+  if (!s.practice.some(p => p.includes("پروژه"))) pts.push("اعلام پروژه شما هنوز ثبت نشده است.");
+  return { lvl, text: "سلام " + first + " عزیز؛ " + head, pts };
+}
 $("#sid").addEventListener("input", e => { e.target.value = norm(e.target.value); });
 $("#searchForm").addEventListener("submit", e => {
   e.preventDefault();
@@ -467,13 +497,16 @@ $("#searchForm").addEventListener("submit", e => {
   const quiz = sc !== null
     ? `<div class="ring" style="--p:${sc}"><span>${toFa(sc)}</span></div><p style="text-align:center">از ۱۰۰</p>`
     : `<div class="big" style="color:var(--c3)">${s.quiz}</div><span class="status">${s.quiz === "غیبت" ? "در کوئیز حاضر نبودید" : "برگه‌ای ثبت نشده"}</span>`;
+  const an = analyze(s);
   const gl = s.group === "تک نفره" ? "تک‌نفره" : "گروه " + toFa(s.group);
   box.innerHTML = `
    <div class="res-head reveal"><h3>${esc(s.name)}</h3><span class="pill">کد ${toFa(s.id)}</span><span class="pill">${gl}</span></div>
+   <div class="card glass reveal msg ${an.lvl}"><h3>📡 پیام سایت به شما</h3><p>${esc(an.text)}</p><ul>${an.pts.map(p => `<li>${esc(p)}</li>`).join("")}</ul></div>
    <div class="res-grid">
     <div class="card glass reveal"><h3>🚪 تعداد غیبت</h3><div class="big" style="color:${s.absences > 2 ? "var(--c3)" : "var(--c1)"}">${toFa(s.absences)}</div><p>${s.absences === 0 ? "بدون غیبت؛ عالی!" : "جلسه غیبت ثبت شده"}</p></div>
     <div class="card glass reveal"><h3>📝 کوئیز گروهی اول</h3>${quiz}</div>
-    <div class="card glass reveal"><h3>📝 کوئیز گروهی دوم</h3><div class="big">${/^\d+$/.test(s.quiz2) ? toFa(s.quiz2) : esc(s.quiz2)}</div><p style="text-align:center">از ۱۰۰</p></div>
+    <div class="card glass reveal"><h3>📝 کوئیز گروهی دوم</h3><div class="big">${fmtQ(s.quiz2)}</div><p style="text-align:center">از ۱۰۰</p></div>
+    <div class="card glass reveal"><h3>📝 کوئیز گروهی سوم</h3><div class="big">${fmtQ(s.quiz3)}</div><p style="text-align:center">${s.quiz3 ? "از ۱۰۰" : "هنوز نمره‌ای ثبت نشده"}</p></div>
     <div class="card glass reveal"><h3>📋 جلسات حل تمرین</h3>
      ${s.practice.length ? `<ul class="checks">${s.practice.map(p => `<li>${esc(p)}</li>`).join("")}</ul>` : `<p class="empty">هنوز مورد تیک‌خورده‌ای ثبت نشده است.</p>`}</div>
    </div>`;
@@ -585,9 +618,9 @@ function tRender() {
     abs: (a, b) => b.s.absences - a.s.absences, quiz: (a, b) => (score(a.s) ?? -1) - (score(b.s) ?? -1) }[so];
   rows.sort(key); tRender.rows = rows;
   $("#tCount").textContent = toFa(rows.length) + " دانشجو از " + toFa(N);
-  $("#tTable").innerHTML = `<thead><tr><th>#</th><th>نام</th><th>کد</th><th>گروه</th><th>غیبت</th><th>کوئیز ۱</th><th>کوئیز ۲</th><th>حل تمرین</th><th>وضعیت</th></tr></thead><tbody>` +
+  $("#tTable").innerHTML = `<thead><tr><th>#</th><th>نام</th><th>کد</th><th>گروه</th><th>غیبت</th><th>کوئیز ۱</th><th>کوئیز ۲</th><th>کوئیز ۳</th><th>حل تمرین</th><th>وضعیت</th></tr></thead><tbody>` +
     rows.map(({ s, k }, i) => `<tr><td>${toFa(i + 1)}</td><td>${esc(s.name)}</td><td>${toFa(s.id)}</td><td>${tGroup(s)}</td><td>${toFa(s.absences)}</td>
-    <td>${score(s) !== null ? toFa(score(s)) : s.quiz}</td><td>${/^\d+$/.test(s.quiz2) ? toFa(s.quiz2) : esc(s.quiz2)}</td><td>${s.practice.length ? "✅ " + toFa(s.practice.length) : "—"}</td>
+    <td>${score(s) !== null ? toFa(score(s)) : s.quiz}</td><td>${fmtQ(s.quiz2)}</td><td>${fmtQ(s.quiz3)}</td><td>${s.practice.length ? "✅ " + toFa(s.practice.length) : "—"}</td>
     <td><span class="rk ${k.lvl}">${tLbl[k.lvl]}</span>${k.r.length ? `<div class="why">${k.r.join("، ")}</div>` : ""}</td></tr>`).join("") + "</tbody>";
 }
 function tOpen() {
@@ -605,8 +638,8 @@ $("#tLogin").addEventListener("submit", e => {
 ["#tq", "#tg", "#tf", "#ts"].forEach(id => $(id).addEventListener("input", tRender));
 $("#tout").onclick = () => { sessionStorage.removeItem("orT"); $("#tPanel").hidden = true; $("#tLogin").hidden = false; };
 $("#tcsv").onclick = () => {
-  const L = ["نام,کد,گروه,غیبت,کوئیز ۱,کوئیز ۲,حل تمرین,وضعیت,دلایل"].concat(tRender.rows.map(({ s, k }) =>
-    [s.name, s.id, s.group, s.absences, s.quiz, s.quiz2, s.practice.join(" / "), tLbl[k.lvl], k.r.join(" / ")].map(v => '"' + String(v).replace(/"/g, '""') + '"').join(",")));
+  const L = ["نام,کد,گروه,غیبت,کوئیز ۱,کوئیز ۲,کوئیز ۳,حل تمرین,وضعیت,دلایل"].concat(tRender.rows.map(({ s, k }) =>
+    [s.name, s.id, s.group, s.absences, s.quiz, s.quiz2, s.quiz3, s.practice.join(" / "), tLbl[k.lvl], k.r.join(" / ")].map(v => '"' + String(v).replace(/"/g, '""') + '"').join(",")));
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob(["\ufeff" + L.join("\n")], { type: "text/csv;charset=utf-8" }));
   a.download = "students.csv"; a.click();
